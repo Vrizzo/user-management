@@ -13,7 +13,10 @@ import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoFactory;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoSettingsFactory;
 import org.axonframework.extensions.mongo.eventsourcing.tokenstore.MongoTokenStore;
 import org.axonframework.serialization.Serializer;
+import org.axonframework.serialization.json.JacksonSerializer;
 import org.axonframework.spring.config.AxonConfiguration;
+import org.axonframework.spring.config.SpringConfigurer;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +49,11 @@ public class AxonConfig {
                 .mongoDatabase(mongo(), mongoDatabase)
                 .build();
     }
+//    @Bean
+//    @Qualifier("messageSerializer")
+//    public Serializer serializer() {
+//        return JacksonSerializer.defaultSerializer();
+//    }
 
     @Bean
     public TokenStore tokenStore(Serializer serializer) {
@@ -65,9 +73,9 @@ public class AxonConfig {
     }
 
     @Bean
-    public EmbeddedEventStore embeddedEventStore(EventStorageEngine eventStorageEngine, AxonConfiguration configuration) {
+    public EmbeddedEventStore embeddedEventStore(EventStorageEngine eventStorageEngine) {
         return EmbeddedEventStore.builder()
-                .messageMonitor(configuration.messageMonitor(EventStore.class, "eventStore"))
+//                .messageMonitor(pringAxonConfiguration.messageMonitor(EventStore.class, "eventStore"))
                 .storageEngine(eventStorageEngine)
                 .build();
     }
