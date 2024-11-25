@@ -14,6 +14,7 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
@@ -26,8 +27,10 @@ public class UserAggregate {
     private String id;
     private User user;
 
+    @Autowired
     @CommandHandler
     public UserAggregate(RegisterUserCommand command) {
+        System.out.println("Handling RegisterUserCommand");
         this.passwordEncoder = new PasswordEncoderService();
         User newUser = command.getUser();
         newUser.setId(id);
@@ -42,6 +45,7 @@ public class UserAggregate {
     }
 
     public UserAggregate() {
+        System.out.println("UserAggregate created UserAggregate()");
         this.passwordEncoder = new PasswordEncoderService();
     }
 
