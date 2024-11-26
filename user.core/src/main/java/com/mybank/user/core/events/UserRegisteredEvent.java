@@ -1,9 +1,10 @@
 package com.mybank.user.core.events;
 
 import com.mybank.user.core.models.User;
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-public class UserRegisterEvent {
+import java.io.Serializable;
+
+public class UserRegisteredEvent implements Serializable {
     private String id;
 
     private User user;

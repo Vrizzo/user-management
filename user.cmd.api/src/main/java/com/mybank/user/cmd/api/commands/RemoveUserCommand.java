@@ -1,9 +1,10 @@
 package com.mybank.user.cmd.api.commands;
 
-import com.mybank.user.core.models.User;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-public class RemoveUserCommand
+import java.io.Serializable;
+
+public class RemoveUserCommand implements Serializable
 {
     public String getId() {
         return id;

@@ -1,6 +1,6 @@
 package com.mybank.user.query.api.handlers;
 
-import com.mybank.user.core.events.UserRegisterEvent;
+import com.mybank.user.core.events.UserRegisteredEvent;
 import com.mybank.user.core.events.UserRemoveEvent;
 import com.mybank.user.core.events.UserUpdateEvent;
 import com.mybank.user.query.api.repository.UserRepository;
@@ -19,17 +19,20 @@ public class UserEventHandlerImpl implements UserEventHandler {
     }
     @EventHandler
     @Override
-    public void on(UserRegisterEvent event) {
+    public void on(UserRegisteredEvent event) {
+        System.out.println("UserEventHandlerImpl.on(UserRegisterEvent event)");
         userRepository.save(event.getUser());
     }
     @EventHandler
     @Override
     public void on(UserUpdateEvent event) {
+        System.out.println("UserEventHandlerImpl.on(UserUpdateEvent event)");
         userRepository.save(event.getUser());
     }
     @EventHandler
     @Override
     public void on(UserRemoveEvent event) {
+        System.out.println("UserEventHandlerImpl.on(UserRemoveEvent event)");
         userRepository.deleteById(event.getId());
     }
 }

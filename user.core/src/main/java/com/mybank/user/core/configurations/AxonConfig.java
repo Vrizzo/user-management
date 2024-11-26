@@ -2,6 +2,7 @@ package com.mybank.user.core.configurations;
 
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
+import com.thoughtworks.xstream.XStream;
 import org.axonframework.eventhandling.tokenstore.TokenStore;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
@@ -54,6 +55,17 @@ public class AxonConfig {
 //    public Serializer serializer() {
 //        return JacksonSerializer.defaultSerializer();
 //    }
+@Bean
+@Qualifier("defaultAxonXStream")
+public XStream xStream() {
+    XStream xStream = new XStream();
+
+    xStream.allowTypesByWildcard(new String[]{
+            "java.util.**",
+            "com.mybank.**"
+    });
+    return xStream;
+}
 
     @Bean
     public TokenStore tokenStore(Serializer serializer) {

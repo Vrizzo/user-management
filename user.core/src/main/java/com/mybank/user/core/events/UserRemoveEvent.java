@@ -1,8 +1,8 @@
 package com.mybank.user.core.events;
 
-import com.mybank.user.core.models.User;
+import java.io.Serializable;
 
-public class UserRemoveEvent {
+public class UserRemoveEvent implements Serializable {
     private String id;
 
 

@@ -2,7 +2,9 @@ package com.mybank.user.core.events;
 
 import com.mybank.user.core.models.User;
 
-public class UserUpdateEvent {
+import java.io.Serializable;
+
+public class UserUpdateEvent implements Serializable {
     private String id;
 
     private User user;

@@ -9,8 +9,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>user.core</module>
-        <module>user.query.api</module>
         <module>user.cmd.api</module>
+        <module>user.query.api</module>
     </modules>
     <properties>
         <spring-boot.version>3.0.4</spring-boot.version>

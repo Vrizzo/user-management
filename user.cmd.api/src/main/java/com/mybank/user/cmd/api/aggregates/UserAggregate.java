@@ -5,7 +5,7 @@ import com.mybank.user.cmd.api.commands.RemoveUserCommand;
 import com.mybank.user.cmd.api.commands.UpdateUserCommand;
 import com.mybank.user.cmd.api.security.PasswordEncoder;
 import com.mybank.user.cmd.api.security.PasswordEncoderService;
-import com.mybank.user.core.events.UserRegisterEvent;
+import com.mybank.user.core.events.UserRegisteredEvent;
 import com.mybank.user.core.events.UserRemoveEvent;
 import com.mybank.user.core.events.UserUpdateEvent;
 import com.mybank.user.core.models.User;
@@ -14,20 +14,17 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
-
 @Aggregate
 public class UserAggregate {
-
-    private final PasswordEncoder passwordEncoder;
     @AggregateIdentifier
     private String id;
     private User user;
 
-    @Autowired
+    private final PasswordEncoder passwordEncoder;
+
     @CommandHandler
     public UserAggregate(RegisterUserCommand command) {
         System.out.println("Handling RegisterUserCommand");
@@ -37,7 +34,7 @@ public class UserAggregate {
         String password = newUser.getAccount().getPassword();
         newUser.getAccount().setPassword(passwordEncoder.hashPassword(password));
 
-        UserRegisterEvent event = new UserRegisterEvent();
+        UserRegisteredEvent event = new UserRegisteredEvent();
         event.setId(command.getId());
         event.setUser(newUser);
 
@@ -51,6 +48,7 @@ public class UserAggregate {
 
     @CommandHandler
     public void handle(UpdateUserCommand command) {
+        System.out.println("Handling UpdateUserCommand");
         User updatedUser = command.getUser();
         updatedUser.setId(id);
         String password = updatedUser.getAccount().getPassword();
@@ -71,18 +69,19 @@ public class UserAggregate {
     }
 
     @EventSourcingHandler
-    public void on(RegisterUserCommand event) {
+    public void on(UserRegisteredEvent event) {
+        System.out.println("Handling UpdateUserCommand");
         this.id = event.getId();
         this.user = event.getUser();
     }
 
     @EventSourcingHandler
-    public void on(UpdateUserCommand event) {
+    public void on(UserUpdateEvent event) {
         this.user = event.getUser();
     }
 
     @EventSourcingHandler
-    public void on(RemoveUserCommand event) {
+    public void on(UserRemoveEvent event) {
         AggregateLifecycle.markDeleted();
     }
 
