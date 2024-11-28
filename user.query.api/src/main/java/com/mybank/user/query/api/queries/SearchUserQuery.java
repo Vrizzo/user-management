@@ -1,13 +1,13 @@
 package com.mybank.user.query.api.queries;
 
 public class SearchUserQuery {
-    private String filter;
+    private final String filter;
+
+    public SearchUserQuery(String filter) {
+        this.filter = filter;
+    }
 
     public String getFilter() {
         return filter;
-    }
-
-    public void setFilter(String filter) {
-        this.filter = filter;
     }
 }

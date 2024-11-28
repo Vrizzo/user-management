@@ -2,6 +2,7 @@ package com.mybank.user.query.api.dto;
 
 import com.mybank.user.core.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserLookupResponse {
@@ -12,7 +13,9 @@ public class UserLookupResponse {
     }
 
     public UserLookupResponse(User user) {
-        this.users = List.of(user);
+        List<User> users = new ArrayList<User>();
+        users.add(user);
+        this.users = users;
     }
 
     public List<User> getUsers() {

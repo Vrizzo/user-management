@@ -1,6 +1,8 @@
 package com.mybank.user.core.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String id;
     private String firstName;
     private String lastName;
