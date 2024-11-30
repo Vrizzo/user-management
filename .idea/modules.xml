@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/user-management.iml" filepath="$PROJECT_DIR$/user-management.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user.oauth.2.0/user.oauth.2.0.iml" filepath="$PROJECT_DIR$/user.oauth.2.0/user.oauth.2.0.iml" />
     </modules>
   </component>
 </project>
